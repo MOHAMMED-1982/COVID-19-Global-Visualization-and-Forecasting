@@ -2,7 +2,7 @@
 
 Crime rates are ever growing in the US. This study will analyze which variables are the best predictors of crimes. Analyzing such variables can help alleviate socioeconomic circumstances for communities which experience high crime rates.
 
-![](Capstone%203%20(Modeling)/Geographical Scatterplot.PNG)
+![](Capstone%20Three%20(Modeling)/Geographical Scatterplot.PNG)
 
 ### **1. Data**
 
