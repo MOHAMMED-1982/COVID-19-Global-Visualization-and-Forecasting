@@ -1,139 +1,44 @@
-# COVID-19 Time Series Analysis & Forecasting
+# **COVID 19 Global Visualization and Forecasting**
 
-The current pandemic caused by the COVID-19 virus has affected the socioeconomic circumstances of numerous people globally. The purpose of this project will be to analyze the time series and forecast outcomes of the pandemic.
+Crime rates are ever growing in the US. This study will analyze which variables are the best predictors of crimes. Analyzing such variables can help alleviate socioeconomic circumstances for communities which experience high crime rates.
 
-![](Capstone%203%20(Modeling)/Geographical%20Scatterplot.PNG)
+![](Capstone%20Two%20(Geospatial%20Visualization)/ViolentCrimes.PNG)
 
 ### **1. Data**
 
-The Johns Hopkins dataset from Kaggle. This dataset is real and is curated from several different, notable health organizations such as WHO, ECDC, and US CDC. This dataset has daily level information on the number of affected cases, deaths and recovery from 2019 novel coronavirus. Also, this is a time series data and so the number of cases on any given day is the cumulative number. The data is available from 22 Jan, 2020 and goes on till 09/23/2020.
+The dataset is from the UCI Machine Learning Repository. The dataset is real and authentic. It was prepared using real data from socio-economic data from 1990 US Census, law enforcement data from the 1990 US LEMAS survey, and crimedata from the 1995 FBI UCR [13].
+UCI Machine Learning Repository contains free datasets which can be used by anyone trying to hone their Machine Learning/Data Science skills. The dataset was originally acquired from Kaggle (another website which hosts Machine Learning competitions) and was cleaned through the various steps of the Capstone.
+This dataset contains a total number of 147 attributes and 2216 instances.
+For the purposes of the Capstone, only 15 of the attributes were used to see which variable performed as the best predictor of crime rates across the US.
 
-> * [Kaggle](https://www.kaggle.com/sudalairajkumar/novel-corona-virus-2019-dataset)
+> * [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/communities+and+crime)
+
+> * [Kaggle](https://www.kaggle.com/kkanda/communities%20and%20crime%20unnormalized%20data%20set)
+
 
 ### **2. Data Wrangling**
+The Data Wrangling portion features steps in order to get acquainted with the dataset. 
+* **Step 1:** All the appropriate features such as unemployment rates, race, education, vacancy, and type of crime were observed, along with basic statistical details such as percentile, mean, max, min, and std. Furthermore, each column was checked for the percentage of missing values. 
+* **Step 2:** The dataset's categorical attributes were checked for unique values and any duplicate values under 'communityname'. Communities with the same names were checked which states they are from and were validated that the duplicates belonged to different states. Then the attributes of interest were averaged and grouped by state to see how each attribute differed from state to state. The distributions were also visualized through horizontal bargraphs. Boxplots were also used to visualize the distribution of Violent and NonViolent Crimes for each state.
+![](Capstone%20Two%20(Data%20Wrangling)/CrimeBoxPlot.png)
 
-* I explored the data to see the type of data for each column, the size of the data, and checked the dataset for missing values. The dataset contains a total of 116805 entries and 7 columns. Overall, there are no missing values other than the Province/State column. This can be due to several factors such as the country not having any provinces or data being recorded for the entire country. For this project, I am just focusing on the data from each country, so it is a good sign that the other columns are not missing any values.
-* To start off, I dropped columns which were not necessary, such as ‘Province/State’, ‘Last Updated’, and ‘Sno’. Furthermore, I uploaded a population dataset which had the population for each country. I renamed a few countries in the covid dataset in order for a smooth merge with the population dataset. The population dataset is being used to understand the severity of the covid virus in each country. Just seeing which country has the most number of cases or deaths is not a very efficient way of understanding the data. For a better analysis, the number of cases, deaths, and recovered will be divided by the population, to see which country has the highest density in each case.
-* The dataset was also checked for duplicate values.
-* Also, there a whole lot of datasets which were used for analysis. There is an entire dataset which records the number of cases and deaths for US counties. 
-* After all the data wrangling, the updated dataset was saved for EDA.
+* **Step 3:** The entire dataset was checked for the number of missing values occurring in each column. The attributes of focus were not missing much values. Different methods of dropping the missing values were approached to see which method contained most data (shape of the dataset).
+* **Step 4:** Scatter plots were created for the target features to analyze the correlation between the socioeconomic variables and crime variables, in order to gain a premature understanding of which attribute is highly correlated with the occurrence of crime.
 
 ### **3. EDA**
+The EDA focuses on the relationship between the socioeconomic and crime variables through graphical representation. Histograms were used to visualize the distributions of Violent Crimes, Non-Violent Crimes, and Incomes of different races. Regression Plots were used to visualize the correlation between target variables and crime variables. A heatmap was used to provide a concise way of visualizing the correlation coefficient between all variables.
+![](Capstone%20Two%20(EDA)/CrimeHeatmap.png)
 
-* The EDA portion is one of the largest portions of this project due to the variety of datasets provided by Johns Hopkins University. This section analyzes global data and US states data.
-* **Step 1:** Created Time Series Plots to visualize the Top 10 countries with the most confirmed, deaths, and recovered.
-
-![](Capstone%203%20(EDA)/Time%20Series%20of%20Top%2010%20Confirmed.PNG)
-
-![](Capstone%203%20(EDA)/Time%20Series%20of%20Top%2010%20Deaths.PNG)
-
-![](Capstone%203%20(EDA)/Time%20Series%20of%20Top%2010%20Recovered.PNG)
-
-* **Step 2:**  Created Choroplethmaps and ranking for all the cases (confirmed, recovered, deaths, active) and their density globally.
-
-  - **Confirmed**
-  ![](Capstone%203%20(EDA)/Choropleth%20map%20of%20confirmed.PNG)
-
-  ![](Capstone%203%20(EDA)/Rank%20map%20of%20confirmed.PNG)
-  
-  - **Confirmed per Million**
-  ![](Capstone%203%20(EDA)/Choropleth%20map%20of%20confirmed%20per%20million.PNG)
-  
-  ![](Capstone%203%20(EDA)/Rank%20map%20of%20confirmed%20per%20million.PNG)
-  
-  - **Deaths**
-  ![](Capstone%203%20(EDA)/Choropleth%20map%20of%20deaths.PNG)
-  
-  ![](Capstone%203%20(EDA)/Rank%20map%20of%20deaths.PNG)
-  
-  - **Deaths per Million**
-  ![](Capstone%203%20(EDA)/Choropleth%20map%20of%20deaths%20per%20million.PNG)
-  
-  ![](Capstone%203%20(EDA)/Rank%20map%20of%20deaths%20per%20million.PNG)
-  
-  - **Recovered**
-  ![](Capstone%203%20(EDA)/Choropleth%20map%20of%20recovered.PNG)
-  
-  ![](Capstone%203%20(EDA)/Rank%20map%20of%20recovered.PNG)
-  
-  - **Recovered per Million**
-  ![](Capstone%203%20(EDA)/Choropleth%20map%20of%20recovered%20per%20million.PNG)
-  
-  ![](Capstone%203%20(EDA)/Rank%20map%20of%20recovered%20per%20million.PNG)
-  
-  - **Active**
-  ![](Capstone%203%20(EDA)/Choropleth%20map%20of%20active.PNG)
-  
-  ![](Capstone%203%20(EDA)/Rank%20map%20of%20active.PNG)
-  
-  - **Active per Million**
-  ![](Capstone%203%20(EDA)/Choropleth%20map%20of%20active%20per%20million.PNG)
-  
-  ![](Capstone%203%20(EDA)/Rank%20map%20of%20active%20per%20million.PNG)
-
-* **Step 3:** Created Time Series Plots to visualize the Top 10 US states with the most confirmed, deaths, and recovered.
-
-![](Capstone%203%20(EDA)/Time%20Series%20of%20Top%2010%20US%20States%20confirmed.PNG)
-
-![](Capstone%203%20(EDA)/Time%20Series%20of%20Top%2010%20US%20States%20deaths.PNG)
-
-* **Step 4:** Created Choroplethmaps and ranking for all the cases (confirmed and deaths) and their density for US States.
-  - **Confirmed**
-  ![](Capstone%203%20(EDA)/Choropleth%20map%20of%20US%20states%20confirmed.PNG)
-  
-  - **Confirmed per Million**
-  ![](Capstone%203%20(EDA)/Choropleth%20map%20of%20US%20states%20confirmed%20per%20million.PNG)
-  
-  ![](Capstone%203%20(EDA)/US%20states%20rank%20map%20confirmed.PNG)
-  
-  - **Deaths**
-  ![](Capstone%203%20(EDA)/Choropleth%20map%20of%20US%20states%20deaths.PNG)
-  
-  - **Deaths per Million**
-  ![](Capstone%203%20(EDA)/Choropleth%20map%20of%20US%20states%20deaths%20per%20million.PNG)
-  
-  ![](Capstone%203%20(EDA)/US%20states%20rank%20map%20deaths.PNG)
-
-### **4. Data Preprocessing**
-* For this step, I created a dataframe containing confirmed cases for the US from the larger dataset and I also created date time features and lag features which are some classical ways of transforming a time series forecasting problems into supervised learning problems. However, I used the classical approach of using an ARIMA model since machine learning for time series analysis and forecasting is a highly time-consuming method. The datetime features and lag features are basically like creating dummy variables for time series analysis. I also created an expanding windows feature. I did some visualization by creating line plots, a histogram, and a density plot.
-* I also created box and whisker plots and heat maps. I did this by monthly interval and daily interval for the month of September. 
-* I also created a Lag Scatter plot. It’s linear characteristic shows that the data is not random and has high autocorrelation.
-
-![](Capstone%203%20(Data%20Preprocessing)/Lag%20Scatter%20Plot.PNG)
-
-* I also created an autocorrelation plot to see the correlation of the data for each day. Although it shows a decreasing correlation in the first couple of months, the line plot shows that the data was stationary for the first couple of months.
-* I also decomposed the time series to identify any trends with the data. There seems to be no trend since there is only a year of data available and it’s a virus. Most of the actions are taken to reduce the virus.
-
-![](Capstone%203%20(Data%20Preprocessing)/Seasonal%20Decompose.PNG)
+### **4. Preprocessing**
+The Preprocessing step focuses on cleaning the dataset and creating dummy variables for further analysis. All missing values were dropped rather than filled. Dummy Variables were created for states identifying which state each row is related to. A few regression models were tried on the dataset to see whether the models were working or not. The cleaned dataset was  uploaded into a new csv file for modelling.
 
 ### **5. Modelling**
-* The Modelling step really focuses on preparing the data for forecasting. 
+The Modelling step purely focuses on Machine learning. For this process, different Regression models were used on the dataset. The models consist of: Linear Regression, Gradient Boosting, Random Forest, Lasso Regression, Ridge Regression, K Nearest Neighbors, and SVM. The models were fit and tested. Each model was tested twice, once for Violent Crimes and Non Violent Crimes. The scores were compared to see which model did the best. The models were also fit with a cross-validation score to avoid overfitting and estimate the skill of the model on the new data.
 
-* Step 1:
-  - The dataset was split into a training and validation dataset. Then the original dataset was split halfways and was used for a walk-forward validation, which uses the      training dataset to predict and the testing dataset to observe. 
-  
-* Step 2:
-  - The training dataset was used to create a persistence model. Like the last step it was split halfways in a training set and test set. After the predictions were made, the model observed a RMSE of 28464.926, meaning that on average, the model was wrong by about 28465 confirmed cases for each prediction made. It may not seem like a big number, but it is a big error for such a weak model
+* **Violent Crimes:** Linear Regression and Random Forest are the top performers with Violent Crimes as the dependent variable.
+![](Capstone%20Two%20(Modelling)/ViolCrimes%20Predictor%20Comparison.PNG)
 
-* Step 3:
-  - I manually configured the ARIMA model to check the stationarity of the training dataset.
-  - After the configuration I found that the test statistic value -0.497328 is greater than the critical value at 5% of -2.881. Thus, we can reject the null hypothesis, meaning that the time series is non-stationary. It also makes sense that the time series is non-stationary since the data is not random and it has a high autocorrelation.
-  
-  ![](Capstone%203%20(Modeling)/Test%20Statistic.PNG)
- 
-* Step 4:
-  - I ended up using Grid Search to find the optimal hyperparameters to be used in my ARIMA model for forecasting and found the best hyperparameter to be ARIMA(6, 2, 0) with a RMSE of 3230.321.
-  - I also reviewed the residual errors.
+* **Non Violent Crimes:** Linear Regression and Lasso Regression are the top performers with Non-Violent Crimes as the dependent variable.
+![](Capstone%20Two%20(Modelling)/NonViolCrimes%20Predictor%20Comparison.PNG)
 
-* Step 5:
-  - I used the Box-Cox transform to perform square root and log transforms and automatically optimize the transform for a dataset.
-  
-  ![](Capstone%203%20(Modeling)/Box%20Cox.PNG)
-  
- * Step 6:
-  - This entire step is getting the data ready for forecasting.
-  - I finalized the model by applying ARIMA on the transformed data with an order of (6, 2, 0). Then I saved the model into separate datasets.
-  - I made a prediction from the training dataset. The prediction was made for the next day and it was 2847059.243. This value was then used to compare with the first value in the validation dataset to check how accurate the prediction was.
-  - I validated the model by checking the first value which was 2839436. The RMSE was 8102.135. So, it was not too far off and the predictions made from the training dataset almost matched up with the data from the validation dataset which means the model performed well.
-
-  ![](Capstone%203%20(Modeling)/Prediction.PNG)
+The best performing models were fit with optimal hyperparameters to get the R^2 score and cross_val_score. Feature importance for the best performers was also calculated in order to see which variable is the best predictor of crime rates. 
